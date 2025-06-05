@@ -1,5 +1,3 @@
-import type { FormEvent } from 'react';
-
 // Типизация состояния приложения
 export interface AppState {
   temp?: number;
@@ -12,7 +10,7 @@ export interface AppState {
 
 // Типизация пропсов для компонента Form
 export interface FormProps {
-  weatherMethod: (event: FormEvent<HTMLFormElement>) => void;
+  weatherMethod: (data: { city: string }) => void;
 }
 
 // Типизация пропсов для компонента Weather

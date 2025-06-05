@@ -11,10 +11,8 @@ const WeatherContainer: FC = () => {
     skip: !city,
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const inputCity = (e.currentTarget.elements.namedItem('city') as HTMLInputElement).value;
-    setCity(inputCity);
+  const handleSubmit = (formData: { city: string }) => {
+    setCity(formData.city);
   };
 
   const state: AppState = {
