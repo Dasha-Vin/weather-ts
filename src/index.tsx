@@ -21,13 +21,11 @@ const applyTheme = (theme: 'light' | 'dark') => {
   localStorage.setItem('theme', theme);
 };
 
-// Подписка на изменения темы
 store.subscribe(() => {
   const state = store.getState();
   applyTheme(state.theme);
 });
 
-// Применение начальной темы
 applyTheme(savedTheme);
 
 root.render(
