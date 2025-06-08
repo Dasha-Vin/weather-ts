@@ -1,7 +1,28 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+:root {
+  --bg-color: #f0f0f0;
+  --text-color: #302e2e;
+  --card-bg: #fff;
+  --border-color: #ddd;
+  --main-gradient: linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
+  --error-color: #ff4444;
+  --icon-color: #000000;
+}
+
+.dark-theme {
+  --bg-color: #1a1a1a;
+  --text-color: #f0f0f0;
+  --card-bg: #2a2a2a;
+  --border-color: #444;
+  --main-gradient: linear-gradient(45deg, rgba(20,30,40,1) 0%, rgba(50,20,80,1) 100%);
+  --error-color: #ff6666;
+  --icon-color: #f0f0f0;
+}
 
 body {
   font-family: "Open Sans", serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .wrapper {
@@ -9,86 +30,86 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: rgba(45,176,224,1);
-  background: -moz-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(45,176,224,1)), color-stop(100%, rgba(96,40,168,1)));
-  background: -webkit-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
-  background: -o-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
-  background: -ms-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
-  background: linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2db0e0', endColorstr='#6028a8', GradientType=1 );
+  background: var(--main-gradient);
+  transition: background 0.3s ease;
 }
 
 .main {
   height: 55vh;
-  background: #2a6bb1;
+  background: var(--card-bg);
   box-shadow: 0px 2px 80px -20px rgba(0,0,0,0.5);
   margin: 0 auto;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
 .info {
   height: 55vh;
   background: url("img/polygon.jpg") center center no-repeat;
   background-blend-mode: multiply;
-  background-color: #484747;
-  border: 2px solid #1f1f1f;
-  border-right: 2px solid #131e29;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #000;
+  color: var(--text-color);
+  transition: all 0.3s ease;
 }
 
 .form {
   height: 55vh;
   padding-top: 100px;
   padding-left: 50px;
-  border-top: 2px solid #113a65;
-  border-bottom: 2px solid #113a65;
-  border-right: 2px solid #113a65;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  border-right: 2px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
 input[type="text"] {
   background-color: transparent;
   border: 0;
-  border-bottom: solid 2px #113a65;
+  border-bottom: solid 2px var(--border-color);
   width: 70%;
   padding-bottom: 4px;
-  color: #fff;
+  color: var(--text-color);
   font-weight: lighter;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-right: 20px;
   font-size: 20px;
   outline: none;
   margin-top: 100px;
   margin-left: 30px;
+  transition: all 0.3s ease;
 }
 
 input::-webkit-input-placeholder {
-  color: #103a65;
+  color: var(--text-color);
+  opacity: 0.7;
 }
 
 input::-moz-placeholder {
-  color: #103a65;
+  color: var(--text-color);
+  opacity: 0.7;
 }
 
 button {
-  border: 2px solid #103a65;
-  border-bottom: 4px solid #103a65;
+  border: 2px solid var(--border-color);
+  border-bottom: 4px solid var(--border-color);
   padding: 8px 20px;
   margin: 0 2px;
   border-radius: 2px;
   cursor: pointer;
-  background-color: #235d9c;
-  color: #fff;
-  outline: none!important;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  border-bottom: 2px solid #103a65;
+  border-bottom: 2px solid var(--border-color);
   position: relative;
   top: 2px;
 }
@@ -102,28 +123,69 @@ button:active {
 
 .info h2 {
   font-size: 3em;
-  color: #fff;
+  color: var(--text-color);
 }
 
 .info p {
-  color: #e4e4e4;
+  color: var(--text-color);
   font-weight: bold;
 }
 
 .infoWeath {
   width: 80%;
   font-size: 20px;
-  color: #fff;
+  color: var(--text-color);
   margin-left: 30px;
   margin-top: 15px;
 }
 
 .error {
-  color: #041f3c;
+  color: var(--error-color);
   font-weight: bold;
-  margin-left: 60px;
+  margin-left: 30px;
+  margin-bottom: 10px;
 }
 
 .col-sm-7 {
-  border: 2px solid #041f3c;
+  border: 2px solid var(--border-color);
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  transition: color 0.3s ease;
+  outline: none;
+}
+
+.theme-toggle:focus {
+  outline: 2px solid var(--border-color);
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dark-theme .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
 }

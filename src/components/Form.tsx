@@ -35,7 +35,7 @@ const Form: React.FC<FormProps> = ({ weatherMethod }) => {
                   placeholder="Город"
                 />
                 <div>
-                {errors.city && <span style={{ color: 'red', fontSize: '14px' }}>{errors.city.message}</span>}
+                {errors.city && <span className="error" style={{ color: 'red', fontSize: '14px' }}>{errors.city.message}</span>}
                 </div>
               </div>
             )}

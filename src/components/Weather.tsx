@@ -12,7 +12,7 @@ const Weather: FC<WeatherProps> = (props) => {
                 <p>Заход солнца: {props.sunset}</p>
             </div>
             }
-            <p className='error'>{props.error}</p>
+            <p className='error' style={{color: 'var(--error-color)'}}>{props.error}</p>
       </div>
     )
 }

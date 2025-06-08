@@ -1,10 +1,12 @@
 import type { FC } from 'react';
 import Info from './components/Info';
 import WeatherContainer from './components/WeatherContainer';
+import ThemeToggle from './components/ThemeToggle';
 
 const App: FC = () => {
   return (
     <div className="wrapper">
+      <ThemeToggle />
       <div className="main">
         <div className="container">
           <div className="row">
