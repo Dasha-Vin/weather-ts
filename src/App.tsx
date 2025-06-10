@@ -1,10 +1,13 @@
 import type { FC } from 'react';
-import Info from './components/Info';
-import WeatherContainer from './components/WeatherContainer';
-import ThemeToggle from './components/ThemeToggle';
+import { Info } from './components/info/Info';
+import { WeatherContainer } from './components/weather/WeatherContainer';
+import { ThemeToggle } from './components/themeToggle/ThemeToggle';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
-const App: FC = () => {
+export const App: FC = () => {
   return (
+    <Provider store={store}>
     <div className="wrapper">
       <ThemeToggle />
       <div className="main">
@@ -20,7 +23,6 @@ const App: FC = () => {
         </div>
       </div>
     </div>
+    </Provider>
   );
 };
-
-export default App;

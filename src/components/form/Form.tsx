@@ -1,23 +1,19 @@
 import { useForm, Controller } from "react-hook-form";
 import type { FormProps } from './types';
+import type {FC} from "react"
+import type { IFormInputs } from './types';
 
-interface IFormInputs {
-  city: string;
-  remember: boolean;
-}
-
-const Form: React.FC<FormProps> = ({ weatherMethod }) => {
+export const Form: FC<FormProps> = ({ onFormSubmit }) => {
   const { 
     handleSubmit, control, formState: { errors } 
   } = useForm<IFormInputs>({
     defaultValues: {
-      city: "",
-      remember: false
+      city: ""
     }
   });
 
   const onSubmit = (data: IFormInputs) => {
-    weatherMethod({ city: data.city });
+    onFormSubmit({ city: data.city });
   };
 
   return (
@@ -50,5 +46,3 @@ const Form: React.FC<FormProps> = ({ weatherMethod }) => {
       </form>
   );
 };
-
-export default Form;

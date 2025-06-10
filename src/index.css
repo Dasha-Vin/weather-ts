@@ -6,6 +6,9 @@
   --main-gradient: linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
   --error-color: #ff4444;
   --icon-color: #000000;
+  --loading-color: #000000;
+  --buttonDay-color: #000000;
+  --active-color: #000000;
 }
 
 .dark-theme {
@@ -16,6 +19,9 @@
   --main-gradient: linear-gradient(45deg, rgba(20,30,40,1) 0%, rgba(50,20,80,1) 100%);
   --error-color: #ff6666;
   --icon-color: #f0f0f0;
+  --loading-color: #f0f0f0;
+  --buttonDay-color: #f0f0f0;
+  --active-color: #f0f0f0;
 }
 
 body {
@@ -150,19 +156,6 @@ button:active {
   border: 2px solid var(--border-color);
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 32px;
-  transition: color 0.3s ease;
-  outline: none;
-}
-
 .theme-toggle:focus {
   outline: 2px solid var(--border-color);
 }
@@ -188,4 +181,52 @@ button:active {
   'wght' 400,
   'GRAD' 0,
   'opsz' 24;
+}
+
+.loading {
+  color: var(--loading-color);
+  margin-left: 50px;
+}
+
+.buttonDay {
+  border: none;
+  padding: 0;
+  margin: 0 10px;
+  background: none;
+  font: inherit;
+  outline: none;
+  font-weight: normal;
+  color: var(--buttonDay-color);
+  text-decoration: none;
+  user-select: text;
+  cursor: default;
+  position: relative;
+  height: 24px; 
+  line-height: 24px; 
+  transition: color 0.2s ease;
+}
+
+.buttonDay[disabled] {
+  font-weight: bold;
+  color: var(--active-color);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--active-color);
+  }
+}
+
+.buttonDay:hover,
+.buttonDay:active,
+.buttonDay:focus {
+  background: none;
+  color: inherit;
+  transform: none;
+  box-shadow: none;
+  outline: none;
 }

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-const Info: FC = () => {
+export const Info: FC = () => {
     return (
         <div>
             <h2>Погодное приложение</h2>
@@ -8,5 +8,3 @@ const Info: FC = () => {
         </div>
     );
 }
-
-export default Info;

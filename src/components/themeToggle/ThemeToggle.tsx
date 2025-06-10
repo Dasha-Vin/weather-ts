@@ -1,15 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from './store';
+import type { RootState, AppDispatch } from '../../store/store';
 import { toggleTheme } from './themeSlice';
 
-const ThemeToggle: React.FC = () => {
+export const ThemeToggle: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const currentTheme = useSelector((state: RootState) => state.theme);
 
   return (
     <button 
-      className="theme-toggle"
+      className='theme-toggle'
       onClick={() => dispatch(toggleTheme())}
       style={{
         position: 'absolute',
@@ -30,5 +30,3 @@ const ThemeToggle: React.FC = () => {
     </button>
   );
 };
-
-export default ThemeToggle;
