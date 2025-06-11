@@ -87,24 +87,30 @@ export const WeatherContainer: FC = () => {
         <>
           {showForecastButtons && city && !(isError || forecastError) && (
             <div style={{ margin: '15px 0', display: 'flex', gap: '10px', marginLeft: '30px' }}>
-              <button className='buttonDay' 
-                onClick={() => handleDayChange('today')}
-                disabled={activeDay === 'today'}
-              >
-                Сегодня
-              </button>
-              <button className='buttonDay'
-                onClick={() => handleDayChange('tomorrow')}
-                disabled={activeDay === 'tomorrow'}
-              >
-                Завтра
-              </button>
-              <button className='buttonDay'
-                onClick={() => handleDayChange('dayAfterTomorrow')}
-                disabled={activeDay === 'dayAfterTomorrow'}
-              >
-                Послезавтра
-              </button>
+              <div>
+                <button className='buttonDay' 
+                  onClick={() => handleDayChange('today')}
+                  disabled={activeDay === 'today'}
+                >
+                  Сегодня
+                </button>
+              </div>
+              <div>
+                <button className='buttonDay'
+                  onClick={() => handleDayChange('tomorrow')}
+                  disabled={activeDay === 'tomorrow'}
+                >
+                  Завтра
+                </button>
+              </div>
+              <div>
+                <button className='buttonDay'
+                  onClick={() => handleDayChange('dayAfterTomorrow')}
+                  disabled={activeDay === 'dayAfterTomorrow'}
+                >
+                  Послезавтра
+                </button>
+              </div>
             </div>
           )}
           <Weather {...weatherState} />

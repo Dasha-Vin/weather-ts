@@ -39,7 +39,7 @@ export const Form: FC<FormProps> = ({ onFormSubmit }) => {
         </div>
         
         <div>
-          <button style={{marginLeft: "30px"}} type="submit">
+          <button className="button-weather" style={{marginLeft: "30px"}} type="submit">
             Получить погоду
           </button>
         </div>

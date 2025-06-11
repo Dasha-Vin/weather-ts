@@ -8,9 +8,8 @@ export const ThemeToggle: React.FC = () => {
   const currentTheme = useSelector((state: RootState) => state.theme);
 
   return (
-    <button 
-      className='theme-toggle'
-      onClick={() => dispatch(toggleTheme())}
+    <button className='theme-toggle' 
+    onClick={() => dispatch(toggleTheme())}
       style={{
         position: 'absolute',
         top: '20px',
