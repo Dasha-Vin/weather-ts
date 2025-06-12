@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
+// components/WeatherContainer/WeatherContainer.tsx
+import { useState } from 'react';
 import type { FC } from 'react';
 import { useGetWeatherByCityQuery, useLazyGetForecastByCityQuery } from '../../api/weatherApi';
 import { Form } from '../form/Form';
-import { Weather } from './Weather';
+import { WeatherDisplay } from './WeatherDisplay';
+import { getWeatherData } from './weatherUtils';
 import type { AppState } from '../../types/types';
 
 export const WeatherContainer: FC = () => {
   const [city, setCity] = useState('');
   const [activeDay, setActiveDay] = useState<'today' | 'tomorrow' | 'dayAfterTomorrow'>('today');
-  const [showForecastButtons, setShowForecastButtons] = useState(false);
-  const [lastValidCity, setLastValidCity] = useState<string | null>(null);
   
   const { data: currentWeather, isFetching, isError } = useGetWeatherByCityQuery(city, {
     skip: !city || activeDay !== 'today',
@@ -18,19 +18,9 @@ export const WeatherContainer: FC = () => {
   const [getForecast, { data: forecastData, isFetching: isForecastFetching, error: forecastError }] = 
     useLazyGetForecastByCityQuery();
 
-  // Используем useEffect для обработки побочных эффектов
-  useEffect(() => {
-    if (isError || forecastError) {
-      setLastValidCity(null);
-    } else if (currentWeather?.city) {
-      setLastValidCity(currentWeather.city);
-    }
-  }, [isError, forecastError, currentWeather]);
-
   const handleSubmit = ({ city }: { city: string }) => {
     setCity(city);
     setActiveDay('today');
-    setShowForecastButtons(true);
     getForecast(city);
   };
 
@@ -38,43 +28,15 @@ export const WeatherContainer: FC = () => {
     setActiveDay(day);
   };
 
-  const getWeatherData = () => {
-    if (isError || forecastError) {
-      return {
-        temp: undefined,
-        city: undefined,
-        country: undefined,
-        pressure: undefined,
-        sunset: undefined,
-      };
-    }
-
-    if (activeDay === 'today') {
-      return {
-        temp: currentWeather?.temp,
-        city: currentWeather?.city,
-        country: currentWeather?.country,
-        pressure: currentWeather?.pressure,
-        sunset: currentWeather?.sunset,
-      };
-    }
-    
-    if (forecastData) {
-      const dayData = forecastData[activeDay];
-      return {
-        temp: dayData?.main.temp,
-        city: lastValidCity || city,
-        country: currentWeather?.country,
-        pressure: dayData?.main.pressure,
-        sunset: 'N/A',
-      };
-    }
-    
-    return {};
-  };
-
   const weatherState: AppState = {
-    ...getWeatherData(),
+    ...getWeatherData({
+      isError,
+      forecastError,
+      activeDay,
+      currentWeather,
+      forecastData,
+      city,
+    }),
     error: isError || forecastError ? 'Город не найден' : undefined,
   };
 
@@ -82,39 +44,16 @@ export const WeatherContainer: FC = () => {
     <>
       <Form onFormSubmit={handleSubmit} />
       {isFetching || isForecastFetching ? (
-        <div className='loading'>Загрузка...</div>
+        <div className="loading">Загрузка...</div>
       ) : (
-        <>
-          {showForecastButtons && city && !(isError || forecastError) && (
-            <div style={{ margin: '15px 0', display: 'flex', gap: '10px', marginLeft: '30px' }}>
-              <div>
-                <button className='buttonDay' 
-                  onClick={() => handleDayChange('today')}
-                  disabled={activeDay === 'today'}
-                >
-                  Сегодня
-                </button>
-              </div>
-              <div>
-                <button className='buttonDay'
-                  onClick={() => handleDayChange('tomorrow')}
-                  disabled={activeDay === 'tomorrow'}
-                >
-                  Завтра
-                </button>
-              </div>
-              <div>
-                <button className='buttonDay'
-                  onClick={() => handleDayChange('dayAfterTomorrow')}
-                  disabled={activeDay === 'dayAfterTomorrow'}
-                >
-                  Послезавтра
-                </button>
-              </div>
-            </div>
-          )}
-          <Weather {...weatherState} />
-        </>
+        <WeatherDisplay
+          city={city}
+          isError={isError}
+          forecastError={forecastError}
+          activeDay={activeDay}
+          onDayChange={handleDayChange}
+          weatherState={weatherState}
+        />
       )}
     </>
   );
