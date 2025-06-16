@@ -1,17 +1,6 @@
-import type { AppState } from '../../types/types';
 import { useState } from 'react';
-
-export const useWeatherState = () => {
-  const [city, setCity] = useState('');
-  const [activeDay, setActiveDay] = useState<'today' | 'tomorrow' | 'dayAfterTomorrow'>('today');
-  
-  return {
-    city,
-    setCity,
-    activeDay,
-    setActiveDay,
-  };
-};
+import { useGetWeatherByCityQuery, useLazyGetForecastByCityQuery } from '../../api/weatherApi';
+import type { AppState } from '../../types/types';
 
 interface GetWeatherDataParams {
   isError: boolean;
@@ -55,17 +44,77 @@ export const getWeatherData = ({
       sunset: currentWeather?.sunset,
     };
   }
-  
-  if (forecastData) {
+
+  if (forecastData && forecastData[activeDay] && forecastData[activeDay].main) {
     const dayData = forecastData[activeDay];
     return {
-      temp: dayData?.main.temp,
+      temp: dayData.main?.temp,
       city: currentWeather?.city || city,
       country: currentWeather?.country,
-      pressure: dayData?.main.pressure,
+      pressure: dayData.main?.pressure,
       sunset: 'N/A',
     };
   }
-  
-  return {};
+
+  return {
+    temp: undefined,
+    city: undefined,
+    country: undefined,
+    pressure: undefined,
+    sunset: undefined,
+  };
+};
+
+// Основной хук, который объединяет всё состояние и логику
+export const useWeatherState = () => {
+  const [city, setCity] = useState('');
+  const [activeDay, setActiveDay] = useState<'today' | 'tomorrow' | 'dayAfterTomorrow'>('today');
+
+  const {
+    data: currentWeather,
+    isFetching,
+    isError,
+  } = useGetWeatherByCityQuery(city, {
+    skip: !city || activeDay !== 'today',
+  });
+
+  const [getForecast, {
+    data: forecastData,
+    isFetching: isForecastFetching,
+    error: forecastError,
+  }] = useLazyGetForecastByCityQuery();
+
+  const handleSubmit = ({ city }: { city: string }) => {
+    setCity(city);
+    setActiveDay('today');
+    getForecast(city);
+  };
+
+  const handleDayChange = (day: typeof activeDay) => {
+    setActiveDay(day);
+  };
+
+  const weatherState: AppState = {
+    ...getWeatherData({
+      isError,
+      forecastError,
+      activeDay,
+      currentWeather,
+      forecastData,
+      city,
+    }),
+    error: isError || forecastError ? 'Город не найден' : undefined,
+  };
+
+  return {
+    city,
+    activeDay,
+    weatherState,
+    handleSubmit,
+    handleDayChange,
+    isFetching,
+    isForecastFetching,
+    isError,
+    forecastError,
+  };
 };
