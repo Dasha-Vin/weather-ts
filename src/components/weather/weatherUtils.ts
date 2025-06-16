@@ -65,7 +65,6 @@ export const getWeatherData = ({
   };
 };
 
-// Основной хук, который объединяет всё состояние и логику
 export const useWeatherState = () => {
   const [city, setCity] = useState('');
   const [activeDay, setActiveDay] = useState<'today' | 'tomorrow' | 'dayAfterTomorrow'>('today');
