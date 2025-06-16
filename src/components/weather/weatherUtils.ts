@@ -1,4 +1,17 @@
 import type { AppState } from '../../types/types';
+import { useState } from 'react';
+
+export const useWeatherState = () => {
+  const [city, setCity] = useState('');
+  const [activeDay, setActiveDay] = useState<'today' | 'tomorrow' | 'dayAfterTomorrow'>('today');
+  
+  return {
+    city,
+    setCity,
+    activeDay,
+    setActiveDay,
+  };
+};
 
 interface GetWeatherDataParams {
   isError: boolean;

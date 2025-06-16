@@ -1,15 +1,12 @@
-// components/WeatherContainer/WeatherContainer.tsx
-import { useState } from 'react';
 import type { FC } from 'react';
 import { useGetWeatherByCityQuery, useLazyGetForecastByCityQuery } from '../../api/weatherApi';
 import { Form } from '../form/Form';
 import { WeatherDisplay } from './WeatherDisplay';
-import { getWeatherData } from './weatherUtils';
+import { getWeatherData, useWeatherState } from './weatherUtils';
 import type { AppState } from '../../types/types';
 
 export const WeatherContainer: FC = () => {
-  const [city, setCity] = useState('');
-  const [activeDay, setActiveDay] = useState<'today' | 'tomorrow' | 'dayAfterTomorrow'>('today');
+  const { city, setCity, activeDay, setActiveDay } = useWeatherState();
   
   const { data: currentWeather, isFetching, isError } = useGetWeatherByCityQuery(city, {
     skip: !city || activeDay !== 'today',
